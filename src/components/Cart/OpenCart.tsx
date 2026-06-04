@@ -16,7 +16,7 @@ export function OpenCartButton({
         <span className="font-mono">
           <span>• </span>
           {/* <Badge variant={"outline"} >{quantity}</Badge> */}
-          <span>{quantity}</span>
+          <span className='text-primary' >{quantity}</span>
         </span>
       ) : null}
     </Button>

@@ -63,7 +63,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
           {children && children}
         </Link>
       }
-      className={className}
+      className={cn("text-foreground",className)}
       size={size}
       variant={appearance}
     />

@@ -5,6 +5,7 @@ import { GridTileImage } from '@/components/Grid/tile'
 import { Gallery } from '@/components/product/Gallery'
 import { ProductDescription } from '@/components/product/ProductDescription'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import configPromise from '@payload-config'
 import { ChevronLeftIcon } from 'lucide-react'
 import { Metadata } from 'next'
@@ -128,21 +129,24 @@ export default async function ProductPage({ params }: Args) {
           variant="ghost"
           className="mb-4"
         />
-        <div className="flex flex-col gap-12 rounded-lg border p-8 md:py-12 lg:flex-row lg:gap-8 bg-primary-foreground">
-          <div className="h-full w-full basis-full lg:basis-1/2">
-            <Suspense
-              fallback={
-                <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
-              }
-            >
-              {Boolean(gallery?.length) && <Gallery gallery={gallery} />}
-            </Suspense>
-          </div>
 
-          <div className="basis-full lg:basis-1/2">
-            <ProductDescription product={product} />
-          </div>
-        </div>
+        <Card>
+          <CardContent className="flex flex-col gap-12 lg:flex-row lg:gap-8">
+            <div className="h-full w-full basis-full lg:basis-1/2">
+              <Suspense
+                fallback={
+                  <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
+                }
+              >
+                {Boolean(gallery?.length) && <Gallery gallery={gallery} />}
+              </Suspense>
+            </div>
+
+            <div className="basis-full lg:basis-1/2">
+              <ProductDescription product={product} />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : <></>}

@@ -96,10 +96,10 @@ export function VariantSelector({ product }: { product: Product }) {
 
               return (
                 <Button
-                  variant={'ghost'}
+                  variant={isActive ? 'outline' : 'ghost'}
                   aria-disabled={!isAvailableForSale}
                   className={clsx('px-2', {
-                    'bg-primary/5 text-primary': isActive,
+                    'bg-primary/5 textprimary': isActive,
                   })}
                   disabled={!isAvailableForSale}
                   key={option.id}

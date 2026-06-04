@@ -97,7 +97,6 @@ export function AddToCart({ product }: Props) {
   return (
     <Button
       aria-label="Add to cart"
-      variant={'outline'}
       className={clsx({
         'hover:opacity-90': true,
       })}

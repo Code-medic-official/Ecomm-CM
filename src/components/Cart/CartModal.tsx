@@ -44,7 +44,10 @@ export function CartModal() {
 
       <SheetContent className="flex flex-col">
         <SheetHeader>
-          <SheetTitle>My Cart</SheetTitle>
+          <SheetTitle className="text-primary text-xl font-medium">
+            <ShoppingCart />
+            <span>My Cart</span>
+          </SheetTitle>
 
           <SheetDescription>Manage your cart here, add items to view the total.</SheetDescription>
         </SheetHeader>
