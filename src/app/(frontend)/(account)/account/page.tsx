@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { AccountForm } from '@/components/forms/AccountForm'
 import { OrderItem } from '@/components/OrderItem'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Order } from '@/payload-types'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import configPromise from '@payload-config'
@@ -48,37 +49,41 @@ export default async function AccountPage() {
 
   return (
     <>
-      <div className="border p-8 rounded-lg bg-primary-foreground">
-        <h1 className="text-3xl font-medium mb-8">Account settings</h1>
-        <AccountForm />
-      </div>
+      <Card>
+        <CardContent>
+          <h1 className="text-3xl text-primary font-medium mb-8">Account settings</h1>
+          <AccountForm />
+        </CardContent>
+      </Card>
 
-      <div className=" border p-8 rounded-lg bg-primary-foreground">
-        <h2 className="text-3xl font-medium mb-8">Recent Orders</h2>
+      <Card>
+        <CardContent>
+          <h2 className="text-3xl text-primary font-medium mb-8">Recent Orders</h2>
 
-        <div className="prose dark:prose-invert mb-8">
-          <p>
-            These are the most recent orders you have placed. Each order is associated with an
-            payment. As you place more orders, they will appear in your orders list.
-          </p>
-        </div>
+          <div className="prose dark:prose-invert mb-8">
+            <p>
+              These are the most recent orders you have placed. Each order is associated with an
+              payment. As you place more orders, they will appear in your orders list.
+            </p>
+          </div>
 
-        {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-          <p className="mb-8">You have no orders.</p>
-        )}
+          {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
+            <p className="mb-8 text-muted-foreground">You have no orders.</p>
+          )}
 
-        {orders && orders.length > 0 && (
-          <ul className="flex flex-col gap-6 mb-8">
-            {orders?.map((order, index) => (
-              <li key={order.id}>
-                <OrderItem order={order} />
-              </li>
-            ))}
-          </ul>
-        )}
+          {orders && orders.length > 0 && (
+            <ul className="flex flex-col gap-6 mb-8">
+              {orders?.map((order, index) => (
+                <li key={order.id}>
+                  <OrderItem order={order} />
+                </li>
+              ))}
+            </ul>
+          )}
 
-        <Button render={<Link href="/orders">View all orders</Link>} variant="default" />
-      </div>
+          <Button render={<Link href="/orders">View all orders</Link>} variant="default" />
+        </CardContent>
+      </Card>
     </>
   )
 }

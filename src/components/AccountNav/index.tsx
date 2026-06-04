@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import clsx from 'clsx'
+import { LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -20,7 +21,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
             render={
               <Link
                 href="/account"
-                className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+                className={clsx('text-foreground! hover:text-primary hover:no-underline', {
                   'text-primary': pathname === '/account',
                 })}
               >
@@ -36,7 +37,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
             render={
               <Link
                 href="/account/addresses"
-                className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+                className={clsx('text-foreground! hover:text-primary hover:no-underline', {
                   'text-primary': pathname === '/account/addresses',
                 })}
               >
@@ -51,7 +52,7 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
           <Button
             render={<Link href="/orders">Orders</Link>}
             variant="link"
-            className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+            className={clsx('text-foreground hover:text-primary hover:no-underline', {
               'text-primary': pathname === '/orders' || pathname.includes('/orders'),
             })}
           />
@@ -61,9 +62,14 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
       <hr className="w-full border-white/5" />
 
       <Button
-        render={<Link href="/logout">Log out</Link>}
-        variant="link"
-        className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+        render={
+          <Link href="/logout">
+            Log out
+            <LogOut />
+          </Link>
+        }
+        variant="outline"
+        className={clsx('text-foreground hover:text-destructive hover:no-underline', {
           'text-primary': pathname === '/logout',
         })}
       />
