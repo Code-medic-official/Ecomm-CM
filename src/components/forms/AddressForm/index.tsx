@@ -1,11 +1,6 @@
 'use client'
-import React, { useCallback } from 'react'
-import { useForm } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useAddresses } from '@payloadcms/plugin-ecommerce/client/react'
-import { defaultCountries as supportedCountries } from '@payloadcms/plugin-ecommerce/client/react'
-import { Address, Config } from '@/payload-types'
 import {
   Select,
   SelectContent,
@@ -13,12 +8,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Address, Config } from '@/payload-types'
+import {
+  defaultCountries as supportedCountries,
+  useAddresses,
+} from '@payloadcms/plugin-ecommerce/client/react'
+import React, { useCallback } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { titles } from './constants'
-import { Button } from '@/components/ui/button'
-import { deepMergeSimple } from 'payload/shared'
 import { FormError } from '@/components/forms/FormError'
 import { FormItem } from '@/components/forms/FormItem'
+import { Button } from '@/components/ui/button'
+import { deepMergeSimple } from 'payload/shared'
+import { titles } from './constants'
 
 type AddressFormValues = {
   title?: string | null
@@ -108,7 +110,7 @@ export const AddressForm: React.FC<Props> = ({
             {errors.title && <FormError message={errors.title.message} />}
           </FormItem>
 
-          <FormItem>
+          <FormItem className="flex-1">
             <Label htmlFor="firstName">First name*</Label>
             <Input
               id="firstName"
@@ -118,7 +120,7 @@ export const AddressForm: React.FC<Props> = ({
             {errors.firstName && <FormError message={errors.firstName.message} />}
           </FormItem>
 
-          <FormItem>
+          <FormItem className="flex-1">
             <Label htmlFor="lastName">Last name*</Label>
             <Input
               autoComplete="family-name"
@@ -141,46 +143,50 @@ export const AddressForm: React.FC<Props> = ({
           {errors.company && <FormError message={errors.company.message} />}
         </FormItem>
 
-        <FormItem>
-          <Label htmlFor="addressLine1">Address line 1*</Label>
-          <Input
-            id="addressLine1"
-            autoComplete="address-line1"
-            {...register('addressLine1', { required: 'Address line 1 is required.' })}
-          />
-          {errors.addressLine1 && <FormError message={errors.addressLine1.message} />}
-        </FormItem>
+        <div className="flex flex-col md:flex-row gap-4">
+          <FormItem className="flex-1">
+            <Label htmlFor="addressLine1">Address line 1*</Label>
+            <Input
+              id="addressLine1"
+              autoComplete="address-line1"
+              {...register('addressLine1', { required: 'Address line 1 is required.' })}
+            />
+            {errors.addressLine1 && <FormError message={errors.addressLine1.message} />}
+          </FormItem>
 
-        <FormItem>
-          <Label htmlFor="addressLine2">Address line 2</Label>
-          <Input id="addressLine2" autoComplete="address-line2" {...register('addressLine2')} />
-          {errors.addressLine2 && <FormError message={errors.addressLine2.message} />}
-        </FormItem>
+          <FormItem className="flex-1">
+            <Label htmlFor="addressLine2">Address line 2</Label>
+            <Input id="addressLine2" autoComplete="address-line2" {...register('addressLine2')} />
+            {errors.addressLine2 && <FormError message={errors.addressLine2.message} />}
+          </FormItem>
+        </div>
 
-        <FormItem>
-          <Label htmlFor="city">City*</Label>
-          <Input
-            id="city"
-            autoComplete="address-level2"
-            {...register('city', { required: 'City is required.' })}
-          />
-          {errors.city && <FormError message={errors.city.message} />}
-        </FormItem>
+        <div className="flex flex-col md:flex-row gap-4">
+          <FormItem>
+            <Label htmlFor="city">City*</Label>
+            <Input
+              id="city"
+              autoComplete="address-level2"
+              {...register('city', { required: 'City is required.' })}
+            />
+            {errors.city && <FormError message={errors.city.message} />}
+          </FormItem>
 
-        <FormItem>
-          <Label htmlFor="state">State</Label>
-          <Input id="state" autoComplete="address-level1" {...register('state')} />
-          {errors.state && <FormError message={errors.state.message} />}
-        </FormItem>
+          <FormItem className="flex-1">
+            <Label htmlFor="state">State</Label>
+            <Input id="state" autoComplete="address-level1" {...register('state')} />
+            {errors.state && <FormError message={errors.state.message} />}
+          </FormItem>
 
-        <FormItem>
-          <Label htmlFor="postalCode">Zip Code*</Label>
-          <Input
-            id="postalCode"
-            {...register('postalCode', { required: 'Postal code is required.' })}
-          />
-          {errors.postalCode && <FormError message={errors.postalCode.message} />}
-        </FormItem>
+          <FormItem className="flex-1">
+            <Label htmlFor="postalCode">Zip Code*</Label>
+            <Input
+              id="postalCode"
+              {...register('postalCode', { required: 'Postal code is required.' })}
+            />
+            {errors.postalCode && <FormError message={errors.postalCode.message} />}
+          </FormItem>
+        </div>
 
         <FormItem>
           <Label htmlFor="country">Country*</Label>
@@ -220,7 +226,9 @@ export const AddressForm: React.FC<Props> = ({
         </FormItem>
       </div>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" size={'lg'} className={"flex mx-auto w-1/2 md:w-1/3"} >
+        Add address
+      </Button>
     </form>
   )
 }

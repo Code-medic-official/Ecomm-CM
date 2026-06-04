@@ -12,6 +12,7 @@ import {
 import { Address } from '@/payload-types'
 import { DefaultDocumentIDType } from 'payload'
 import React, { useState } from 'react'
+import { ScrollArea } from '../ui/scroll-area'
 
 type Props = {
   addressID?: DefaultDocumentIDType
@@ -52,21 +53,28 @@ export const CreateAddressModal: React.FC<Props> = ({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger
-        render={<Button variant={'outline'}>{buttonText}</Button>}
+        render={
+          <Button variant={'outline'}>
+            {/* <PlusCircle /> */}
+            {buttonText}
+          </Button>
+        }
         disabled={disabled}
       />
-      <DialogContent>
+      <DialogContent className={'w-screen md:max-w-[50vw]'}>
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
           <DialogDescription>This address will be connected to your account.</DialogDescription>
         </DialogHeader>
 
-        <AddressForm
-          addressID={addressID}
-          initialData={initialData}
-          callback={handleCallback}
-          skipSubmission={skipSubmission}
-        />
+        <ScrollArea className="h-[70vh] md:h-[50vh]">
+          <AddressForm
+            addressID={addressID}
+            initialData={initialData}
+            callback={handleCallback}
+            skipSubmission={skipSubmission}
+          />
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )

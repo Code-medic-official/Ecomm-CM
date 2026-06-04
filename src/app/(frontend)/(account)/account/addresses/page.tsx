@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 
-import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { headers as getHeaders } from 'next/headers.js'
-import configPromise from '@payload-config'
-import { Order } from '@/payload-types'
-import { getPayload } from 'payload'
-import { redirect } from 'next/navigation'
 import { AddressListing } from '@/components/addresses/AddressListing'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
+import { Card, CardContent } from '@/components/ui/card'
+import { Order } from '@/payload-types'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import configPromise from '@payload-config'
+import { UserCog } from 'lucide-react'
+import { headers as getHeaders } from 'next/headers.js'
+import { redirect } from 'next/navigation'
+import { getPayload } from 'payload'
 
 export default async function AddressesPage() {
   const headers = await getHeaders()
@@ -46,15 +48,21 @@ export default async function AddressesPage() {
 
   return (
     <>
-      <div className="border p-8 rounded-lg bg-primary-foreground">
-        <h1 className="text-3xl font-medium mb-8">Addresses</h1>
+      <Card>
+        <CardContent>
+          <h1 className="text-2xl font-medium mb-8 text-primary flex item-center gap-x-1">
+            <UserCog size={25} />
+            Addresses
+          </h1>
 
-        <div className="mb-8">
-          <AddressListing />
-        </div>
+          <div className="mb-8">
+            <AddressListing />
+          </div>
 
-        <CreateAddressModal />
-      </div>
+          <CreateAddressModal />
+        </CardContent>
+      </Card>
+      {/* <div className="border p-8 rounded-lg bg-primary-foreground"></div> */}
     </>
   )
 }
