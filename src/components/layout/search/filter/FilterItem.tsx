@@ -6,10 +6,8 @@ import { createUrl } from '@/utilities/createUrl'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import React from 'react'
 
-import type { ListItem } from '.'
-import type { PathFilterItem as PathFilterItemType } from '.'
+import type { ListItem, PathFilterItem as PathFilterItemType } from '.'
 
 function PathFilterItem({ item }: { item: PathFilterItemType }) {
   const pathname = usePathname()
@@ -37,7 +35,7 @@ function PathFilterItem({ item }: { item: PathFilterItemType }) {
   )
 }
 
-function SortFilterItem({ item }: { item: SortFilterItemType }) {
+export function SortFilterItem({ item }: { item: SortFilterItemType }) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const active = searchParams.get('sort') === item.slug
@@ -52,17 +50,17 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
   const DynamicTag = active ? 'p' : Link
 
   return (
-    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+    <div className="w-full! mt-2 flex text-sm textforeground" key={item.title}>
       <DynamicTag
         className={clsx('w-full hover:underline hover:underline-offset-4', {
-          'underline underline-offset-4': active,
+          'underline underline-offset-4 text-primary': active,
         })}
         href={href}
         prefetch={!active ? false : undefined}
       >
         {item.title}
       </DynamicTag>
-    </li>
+    </div>
   )
 }
 

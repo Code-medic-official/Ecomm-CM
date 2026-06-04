@@ -1,10 +1,10 @@
 'use client'
 
-import { Dialog as SheetPrimitive } from '@base-ui/react/dialog'
 import * as React from 'react'
+import { Dialog as SheetPrimitive } from '@base-ui/react/dialog'
 
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { XIcon } from 'lucide-react'
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
@@ -98,7 +98,7 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
     <SheetPrimitive.Title
       data-slot="sheet-title"
       className={cn(
-        'font-heading text-xl font-semibold text-foreground flex items-center gap-x-2',
+        'font-heading text-xl font-medium text-foreground flex items-center gap-x-1',
         className,
       )}
       {...props}
@@ -118,11 +118,11 @@ function SheetDescription({ className, ...props }: SheetPrimitive.Description.Pr
 
 export {
   Sheet,
+  SheetTrigger,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
+  SheetFooter,
   SheetTitle,
-  SheetTrigger,
+  SheetDescription,
 }

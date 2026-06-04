@@ -11,6 +11,7 @@ import { headers as getHeaders } from 'next/headers.js'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
+import Heading from '@/components/custom/Heading'
 
 export default async function AccountPage() {
   const headers = await getHeaders()
@@ -51,14 +52,14 @@ export default async function AccountPage() {
     <>
       <Card>
         <CardContent>
-          <h1 className="text-3xl text-primary font-medium mb-8">Account settings</h1>
+          <Heading className="text-3xl mb-8">Account settings</Heading>
           <AccountForm />
         </CardContent>
       </Card>
 
       <Card>
         <CardContent>
-          <h2 className="text-3xl text-primary font-medium mb-8">Recent Orders</h2>
+          <Heading className="text-3xl mb-8">Recent Orders</Heading>
 
           <div className="prose dark:prose-invert mb-8">
             <p>
@@ -68,7 +69,7 @@ export default async function AccountPage() {
           </div>
 
           {(!orders || !Array.isArray(orders) || orders?.length === 0) && (
-            <p className="mb-8 text-muted-foreground">You have no orders.</p>
+            <p className="mb-8 font-mono text-muted-foreground">You have no orders.</p>
           )}
 
           {orders && orders.length > 0 && (

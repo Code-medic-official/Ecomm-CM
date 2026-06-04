@@ -10,7 +10,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
-import { ShoppingCart } from 'lucide-react'
+import { CreditCard, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -178,7 +178,7 @@ export function CartModal() {
                   <Button
                     render={
                       <Link className="w-full" href="/checkout">
-                        Proceed to Checkout
+                        Proceed to Checkout <CreditCard />
                       </Link>
                     }
                   />

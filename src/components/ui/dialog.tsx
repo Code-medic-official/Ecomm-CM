@@ -1,10 +1,10 @@
 'use client'
 
-import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import * as React from 'react'
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 import { XIcon } from 'lucide-react'
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
@@ -106,7 +106,7 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        'text-primary font-heading text-xl leading-none font-medium flex items-center gap-x-2',
+        'font-heading text-xl leading-none font-medium text-primary flex item-center gap-x-1',
         className,
       )}
       {...props}
@@ -119,7 +119,7 @@ function DialogDescription({ className, ...props }: DialogPrimitive.Description.
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        'text-xs md:text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground',
+        'text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground',
         className,
       )}
       {...props}

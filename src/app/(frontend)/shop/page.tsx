@@ -19,7 +19,7 @@ export default async function ShopPage({ searchParams }: Props) {
   const { q: searchValue, sort, category } = await searchParams
   const payload = await getPayload({ config: configPromise })
 
-  const products = await payload.find({
+  const { docs: products } = await payload.find({
     collection: 'products',
     draft: false,
     overrideAccess: false,
@@ -61,9 +61,14 @@ export default async function ShopPage({ searchParams }: Props) {
               ...(category
                 ? [
                     {
-                      categories: {
-                        contains: category,
-                      },
+                      or: [
+                        {
+                          categories: {
+                            contains: category,
+                          },
+                        },
+                        { 'categories.refCategory': {equals: category} }, // ! test
+                      ],
                     },
                   ]
                 : []),
@@ -73,26 +78,26 @@ export default async function ShopPage({ searchParams }: Props) {
       : {}),
   })
 
-  const resultsText = products.docs.length > 1 ? 'results' : 'result'
+  const resultsText = products.length > 1 ? 'results' : 'result'
 
   return (
     <div>
       {searchValue ? (
         <p className="mb-4">
-          {products.docs?.length === 0
+          {products?.length === 0
             ? 'There are no products that match '
-            : `Showing ${products.docs.length} ${resultsText} for `}
+            : `Showing ${products.length} ${resultsText} for `}
           <span className="font-bold">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
 
-      {!searchValue && products.docs?.length === 0 && (
+      {!searchValue && products?.length === 0 && (
         <p className="mb-4">No products found. Please try different filters.</p>
       )}
 
-      {products?.docs.length > 0 ? (
+      {products?.length > 0 ? (
         <Grid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.docs.map((product) => {
+          {products.map((product) => {
             return <ProductGridItem key={product.id} product={product} />
           })}
         </Grid>

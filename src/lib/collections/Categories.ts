@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
 import { adminOnly } from '@/access/adminOnly'
+import { icons } from 'lucide-react'
+import { LUCIDE_ICON_NAMES } from '../constants'
+// import { iconNames } from 'lucide-react/dynamic'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -20,6 +23,17 @@ export const Categories: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'refCategory',
+      type: 'relationship',
+      relationTo: 'categories',
+      label: "Parent Category"
+    },
+    {
+      name: 'icon',
+      type: 'select',
+      options: LUCIDE_ICON_NAMES,
     },
     slugField({
       position: undefined,

@@ -6,10 +6,11 @@ import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Providers } from '@/providers'
-import { InitTheme } from '@/providers/Theme/InitTheme'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import './globals.css'
+import { cn } from '@/lib/utils'
+import { poppinsFont, spaceGroteskFont } from '@/fonts/fonts'
 
 const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -43,22 +44,22 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      className={[GeistSans.variable, GeistMono.variable].filter(Boolean).join(' ')}
+      className={cn(
+        [GeistSans.variable, GeistMono.variable].filter(Boolean).join(' '),
+        poppinsFont.className,
+        spaceGroteskFont.variable,
+      )}
       lang="en"
       suppressHydrationWarning
     >
-      <head>
-        <InitTheme />
-      </head>
       <body>
-        <ScrollArea className={'h-screen overflow-x-hidden'}>
+        <ScrollArea className={'h-screen max-h-screen! overflow-x-hidden'}>
           <Providers>
-            <AdminBar />
+            {/* <AdminBar /> */}
             <LivePreviewListener />
-
-            <Header />
+            {/* <Header /> */}
             <main>{children}</main>
-            <Footer />
+            {/* <Footer /> */}
           </Providers>
         </ScrollArea>
       </body>

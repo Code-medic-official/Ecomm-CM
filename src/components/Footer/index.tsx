@@ -2,7 +2,7 @@ import type { Footer } from '@/payload-types'
 
 import { FooterMenu } from '@/components/Footer/menu'
 import { LogoIcon } from '@/components/icons/logo'
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
+import { ThemeToggle } from '@/providers/Theme'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -43,7 +43,7 @@ export async function Footer() {
             <FooterMenu menu={menu} />
           </Suspense>
           <div className="md:ml-auto flex flex-col gap-4 items-end">
-            <ThemeSelector />
+            <ThemeToggle />
           </div>
         </div>
       </div>

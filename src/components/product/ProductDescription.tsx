@@ -9,6 +9,7 @@ import { Suspense } from 'react'
 import { StockIndicator } from '@/components/product/StockIndicator'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import { VariantSelector } from './VariantSelector'
+import Heading from '../custom/Heading'
 
 export function ProductDescription({ product }: { product: Product }) {
   const { currency } = useCurrency()
@@ -54,7 +55,8 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <h1 className="text-2xl font-medium text-primary">{product.title}</h1>
+        <Heading className="text-2xl">{product.title}</Heading>
+        {/* <h1 className=" font-medium text-primary">{product.title}</h1> */}
         <div className="uppercase text-primary">
           {hasVariants ? (
             <Price highestAmount={highestAmount} lowestAmount={lowestAmount} />

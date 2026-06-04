@@ -5,6 +5,7 @@ import type { Product, Variant } from '@/payload-types'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
+import { Plus } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import React, { useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
@@ -104,6 +105,7 @@ export function AddToCart({ product }: Props) {
       onClick={addToCart}
       type="submit"
     >
+      <Plus />
       Add To Cart
     </Button>
   )
