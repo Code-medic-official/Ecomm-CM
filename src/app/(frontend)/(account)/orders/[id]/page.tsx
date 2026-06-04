@@ -1,21 +1,21 @@
 import type { Order } from '@/payload-types'
 import type { Metadata } from 'next'
 
+import { OrderStatus } from '@/components/OrderStatus'
 import { Price } from '@/components/Price'
+import { ProductItem } from '@/components/ProductItem'
+import { AddressItem } from '@/components/addresses/AddressItem'
 import { Button } from '@/components/ui/button'
 import { formatDateTime } from '@/utilities/formatDateTime'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
+import configPromise from '@payload-config'
+import { ChevronLeftIcon } from 'lucide-react'
+import { headers as getHeaders } from 'next/headers.js'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ChevronLeftIcon } from 'lucide-react'
-import { ProductItem } from '@/components/ProductItem'
-import { headers as getHeaders } from 'next/headers.js'
-import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { OrderStatus } from '@/components/OrderStatus'
-import { AddressItem } from '@/components/addresses/AddressItem'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic' // ! remove
 
 type PageProps = {
   params: Promise<{ id: string }>
@@ -117,12 +117,15 @@ export default async function Order({ params, searchParams }: PageProps) {
       <div className="flex gap-8 justify-between items-center mb-6">
         {user ? (
           <div className="flex gap-4">
-            <Button asChild variant="ghost">
-              <Link href="/orders">
-                <ChevronLeftIcon />
-                All orders
-              </Link>
-            </Button>
+            <Button
+              render={
+                <Link href="/orders">
+                  <ChevronLeftIcon />
+                  All orders
+                </Link>
+              }
+              variant="ghost"
+            />
           </div>
         ) : (
           <div></div>

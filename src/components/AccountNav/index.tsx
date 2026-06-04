@@ -16,55 +16,57 @@ export const AccountNav: React.FC<Props> = ({ className }) => {
     <div className={clsx(className)}>
       <ul className="flex flex-col gap-2">
         <li>
-          <Button asChild variant="link">
-            <Link
-              href="/account"
-              className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
-                'text-primary': pathname === '/account',
-              })}
-            >
-              Account settings
-            </Link>
-          </Button>
-        </li>
-
-        <li>
-          <Button asChild variant="link">
-            <Link
-              href="/account/addresses"
-              className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
-                'text-primary': pathname === '/account/addresses',
-              })}
-            >
-              Addresses
-            </Link>
-          </Button>
+          <Button
+            render={
+              <Link
+                href="/account"
+                className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+                  'text-primary': pathname === '/account',
+                })}
+              >
+                Account settings
+              </Link>
+            }
+            variant="link"
+          />
         </li>
 
         <li>
           <Button
-            asChild
+            render={
+              <Link
+                href="/account/addresses"
+                className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
+                  'text-primary': pathname === '/account/addresses',
+                })}
+              >
+                Addresses
+              </Link>
+            }
+            variant="link"
+          />
+        </li>
+
+        <li>
+          <Button
+            render={<Link href="/orders">Orders</Link>}
             variant="link"
             className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
               'text-primary': pathname === '/orders' || pathname.includes('/orders'),
             })}
-          >
-            <Link href="/orders">Orders</Link>
-          </Button>
+          />
         </li>
       </ul>
 
       <hr className="w-full border-white/5" />
 
       <Button
-        asChild
+        render={<Link href="/logout">Log out</Link>}
         variant="link"
         className={clsx('text-primary/50 hover:text-primary hover:no-underline', {
           'text-primary': pathname === '/logout',
         })}
-      >
-        <Link href="/logout">Log out</Link>
-      </Button>
+      />
     </div>
   )
 }

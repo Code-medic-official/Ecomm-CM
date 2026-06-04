@@ -16,11 +16,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { Button } from '@/components/ui/button'
+import { Product } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
-import { Button } from '@/components/ui/button'
-import { Product } from '@/payload-types'
 
 export function CartModal() {
   const { cart } = useCart()
@@ -40,9 +40,7 @@ export function CartModal() {
 
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
-      <SheetTrigger asChild>
-        <OpenCartButton quantity={totalQuantity} />
-      </SheetTrigger>
+      <SheetTrigger render={<OpenCartButton quantity={totalQuantity} />} />
 
       <SheetContent className="flex flex-col">
         <SheetHeader>
@@ -174,11 +172,13 @@ export function CartModal() {
                     </div>
                   )}
 
-                  <Button asChild>
-                    <Link className="w-full" href="/checkout">
-                      Proceed to Checkout
-                    </Link>
-                  </Button>
+                  <Button
+                    render={
+                      <Link className="w-full" href="/checkout">
+                        Proceed to Checkout
+                      </Link>
+                    }
+                  />
                 </div>
               </div>
             </div>

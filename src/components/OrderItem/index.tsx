@@ -40,9 +40,11 @@ export const OrderItem: React.FC<Props> = ({ order }) => {
         </p>
       </div>
 
-      <Button variant="outline" asChild className="self-start sm:self-auto">
-        <Link href={`/orders/${order.id}`}>View Order</Link>
-      </Button>
+      <Button
+        variant="outline"
+        render={<Link href={`/orders/${order.id}`}>View Order</Link>}
+        className="self-start sm:self-auto"
+      />
     </div>
   )
 }

@@ -67,9 +67,7 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger asChild>
-        <Button variant={'outline'}>{'Select an address'}</Button>
-      </DialogTrigger>
+      <DialogTrigger render={<Button variant={'outline'}>{'Select an address'}</Button>} />
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{'Select an address'}</DialogTitle>
