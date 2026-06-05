@@ -27,5 +27,14 @@ export const ReviewsCollection: CollectionConfig = {
     { name: 'likes', type: 'relationship', relationTo: 'users', hasMany: true },
     { name: 'dislikes', type: 'relationship', relationTo: 'users', hasMany: true },
     { name: 'rating', type: 'select', options: ['1', '2', '3', '4', '5'] },
+    {
+      name: 'isHidden',
+      label: 'Hide review',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 }

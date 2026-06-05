@@ -5,9 +5,10 @@ import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
 import Link from 'next/link'
 
-import React, { useRef, useState } from 'react'
+import React, { ComponentProps, useRef, useState } from 'react'
 import { SidebarTrigger } from './sidebar'
 import { usePathname } from 'next/navigation'
+import Logo from '../layout/Logo'
 
 interface NavbarProps {
   children: React.ReactNode
@@ -98,7 +99,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: '800px',
       }}
       className={cn(
-        'relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent',
+        'relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex',
+        "glass-shadow",
         visible && 'bg-muted',
         className,
       )}
@@ -129,7 +131,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             onClick={onItemClick}
             className={cn(
               'relative px-4 py-2 text-foreground font-medium font-heading',
-              isActive && 'text-primary bg-muted/60 rounded-full',
+              isActive && 'font-semibold text-primary bg-muted/60 rounded-full glass-shadow',
             )}
             key={`link-${idx}`}
             href={item.link}
@@ -181,7 +183,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 export const MobileNavHeader = ({ children, className }: MobileNavHeaderProps) => {
   return (
     <div
-      className={cn('flex w-full flex-row items-center justify-between px-2 sm:px-3', className)}
+      className={cn('flex w-full flex-row items-center justify-between px-1 sm:px-3', className)}
     >
       {children}
     </div>
@@ -212,16 +214,8 @@ export const MobileNavToggle = ({ isOpen, onClick }: { isOpen: boolean; onClick:
   return isOpen ? <X className="" onClick={onClick} /> : <Menu className="" onClick={onClick} />
 }
 
-export const NavbarLogo = () => {
-  return (
-    <a
-      href="#"
-      className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
-    >
-      <img src="https://assets.aceternity.com/logo-dark.png" alt="logo" width={30} height={30} />
-      <span className="font-medium text-black dark:text-white">Startup</span>
-    </a>
-  )
+export const NavbarLogo = (props: ComponentProps<typeof Logo>) => {
+  return <Logo {...props} className={cn('size-10', props.className)} />
 }
 
 export const NavbarButton = ({

@@ -4,6 +4,8 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import React, { Fragment } from 'react'
 
 import { CheckoutPage } from '@/components/checkout/CheckoutPage'
+import Heading from '@/components/custom/Heading'
+import { Header } from '@/components/Header'
 
 export default function Checkout() {
   return (
@@ -32,9 +34,13 @@ export default function Checkout() {
         </div>
       )}
 
-      <h1 className="sr-only">Checkout</h1>
+      <Heading className="sr-only">Check---out</Heading>
 
-      <CheckoutPage />
+      <div className="flex-1">
+        <Header hideSidebarToggle />
+
+        <CheckoutPage />
+      </div>
     </div>
   )
 }

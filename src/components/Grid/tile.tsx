@@ -25,10 +25,10 @@ export const GridTileImage: React.FC<Props> = ({
   return (
     <div
       className={clsx(
-        'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black',
+        'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-secondary/60 hover:border-blue-600',
         {
           'border-2 border-primary': active,
-          'border-neutral-200 dark:border-neutral-800': !active,
+          'border-muted': !active,
           relative: label,
         },
       )}

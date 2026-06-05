@@ -2911,6 +2911,7 @@ export interface Review {
   likes?: (string | User)[] | null;
   dislikes?: (string | User)[] | null;
   rating?: ('1' | '2' | '3' | '4' | '5') | null;
+  isHidden?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -3299,6 +3300,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   likes?: T;
   dislikes?: T;
   rating?: T;
+  isHidden?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -6,6 +6,7 @@ import {
   MobileNavToggle,
   Navbar,
   NavbarButton,
+  NavbarLogo,
   NavBody,
   NavItems,
 } from '@/components/ui/resizable-navbar'
@@ -16,8 +17,15 @@ import { Suspense, useState } from 'react'
 import { Cart } from '../Cart'
 import { OpenCartButton } from '../Cart/OpenCart'
 import { SidebarTrigger } from '../ui/sidebar'
+import Logo from './Logo'
 
-export function AppNavbar({ header }: { header: Header }) {
+export function AppNavbar({
+  header,
+  hideSidebarToggle = false,
+}: {
+  header: Header
+  hideSidebarToggle?: boolean
+}) {
   const navItems = header.navItems ?? []
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -27,10 +35,14 @@ export function AppNavbar({ header }: { header: Header }) {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          {/* <NavbarLogo /> */}
-          <NavbarButton variant="secondary" className="bg-none p-0 text-foreground relatve z-70">
-            <SidebarTrigger variant={'outline'} />
-          </NavbarButton>
+          {hideSidebarToggle ? (
+            <NavbarLogo className='relative z-70' />
+          ) : (
+            // <Logo className="size-10" />
+            <NavbarButton variant="secondary" className="bg-none p-0 text-foreground relatve z-70">
+              <SidebarTrigger variant={'outline'} />
+            </NavbarButton>
+          )}
 
           <NavItems items={navItems.map(({ link }) => ({ name: link.label, link: link.url! }))} />
           <div className="flex items-center gap-4">
@@ -51,11 +63,20 @@ export function AppNavbar({ header }: { header: Header }) {
           <MobileNavHeader>
             {/* <NavbarLogo /> */}
             <div className="flex items-center gap-x-1">
+              {hideSidebarToggle ? (
+                <NavbarLogo />
+              ) : (
+                <NavbarButton
+                  variant="secondary"
+                  className="bg-none p-0 text-foreground relatve z-70"
+                >
+                  <SidebarTrigger variant={'outline'} size={'icon-lg'} />
+                </NavbarButton>
+              )}
               <MobileNavToggle
                 isOpen={isMobileMenuOpen}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               />
-              <SidebarTrigger />
             </div>
 
             <div className="flex items-center gap-2">

@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
+import Heading from '@/components/custom/Heading'
 
 type Args = {
   params: Promise<{
@@ -167,7 +168,7 @@ function RelatedProducts({ products }: { products: Product[] }) {
 
   return (
     <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+      <Heading className="mb-4 text-2xl font-bold">Related Products</Heading>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {products.map((product) => (
           <li

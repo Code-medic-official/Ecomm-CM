@@ -226,7 +226,7 @@ export const AddressForm: React.FC<Props> = ({
         </FormItem>
       </div>
 
-      <Button type="submit" size={'lg'} className={"flex mx-auto w-1/2 md:w-1/3"} >
+      <Button type="submit" size={'lg'} className={"flex mx-auto w-1/2 md:w-1/3 mb-2"} >
         Add address
       </Button>
     </form>

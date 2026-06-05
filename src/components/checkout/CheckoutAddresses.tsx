@@ -3,16 +3,16 @@
 import { AddressItem } from '@/components/addresses/AddressItem'
 import { CreateAddressModal } from '@/components/addresses/CreateAddressModal'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { Address } from '@/payload-types'
 import { useAddresses } from '@payloadcms/plugin-ecommerce/client/react'
 import { useState } from 'react'
+import {
+  DynamicPanel,
+  DynamicPanelContent,
+  DynamicPanelHeader,
+  DynamicPanelTitle,
+  DynamicPanelTrigger,
+} from '../custom/DynamicPanel'
 
 type Props = {
   selectedAddress?: Address
@@ -66,12 +66,18 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger render={<Button variant={'outline'}>{'Select an address'}</Button>} />
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{'Select an address'}</DialogTitle>
-        </DialogHeader>
+    // <DynamicPanel open={open} onOpenChange={handleOpenChange}>
+    <DynamicPanel
+      dialogProps={{ open, onOpenChange: handleOpenChange }}
+      drawerProps={{ open, onOpenChange: handleOpenChange }}
+    >
+      <DynamicPanelTrigger>
+        <Button variant={'outline'}>{'Select an address'}</Button>
+      </DynamicPanelTrigger>
+      <DynamicPanelContent>
+        <DynamicPanelHeader>
+          <DynamicPanelTitle>{'Select an address'}</DynamicPanelTitle>
+        </DynamicPanelHeader>
 
         <div className="flex flex-col gap-12">
           <ul className="flex flex-col gap-8">
@@ -97,7 +103,7 @@ const AddressesModal: React.FC<Props> = ({ setAddress }) => {
 
           <CreateAddressModal />
         </div>
-      </DialogContent>
-    </Dialog>
+      </DynamicPanelContent>
+    </DynamicPanel>
   )
 }
