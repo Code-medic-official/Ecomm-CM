@@ -26,7 +26,7 @@ export const ProductSettings: Field[] = [
   },
   {
     name: 'discount',
-    label: 'Price Discount',
+    label: 'Price Discount(%)',
     type: 'number',
     min: 1,
     max: 100,

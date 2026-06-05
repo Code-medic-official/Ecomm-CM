@@ -2,6 +2,9 @@ import { CollectionConfig } from 'payload'
 
 export const ReviewsCollection: CollectionConfig = {
   slug: 'reviews',
+  admin: {
+    group: 'Ecommerce',
+  },
   fields: [
     {
       name: 'user',

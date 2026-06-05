@@ -43,8 +43,6 @@ export const CategoryProvider = ({
   const [parentCategory, setParentCategory] = useState<Category>()
   const [activeCategory, setActiveCategory] = useState<Category>()
 
-  console.log('parent', parentCategory)
-
   const Values: Props = {
     categories,
     parentCategory,

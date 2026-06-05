@@ -30,6 +30,8 @@ export default async function ShopPage({ searchParams }: Props) {
       gallery: true,
       categories: true,
       priceInUSD: true,
+      settings: true,
+      
     },
     ...(sort ? { sort } : { sort: 'title' }),
     ...(searchValue || category

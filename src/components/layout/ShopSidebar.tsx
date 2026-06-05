@@ -55,10 +55,10 @@ ShopSidebar.CategoriesMenu = async () => {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>
+      {/* <SidebarGroupLabel>
         <Boxes />
         Categories
-      </SidebarGroupLabel>
+      </SidebarGroupLabel> */}
 
       <Suspense
         fallback={[...Array(4)].map((_, i) => (

@@ -213,6 +213,7 @@ const queryProductBySlug = async ({ slug }: { slug: string }) => {
         ...(draft ? [] : [{ _status: { equals: 'published' } }]),
       ],
     },
+
     populate: {
       variants: {
         title: true,

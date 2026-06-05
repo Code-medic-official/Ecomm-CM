@@ -24,6 +24,7 @@ export const Providers: React.FC<{
                   title: true,
                   gallery: true,
                   inventory: true,
+                  settings: true,
                 },
                 variants: {
                   title: true,

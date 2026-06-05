@@ -1,19 +1,21 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import type { Product, Variant } from '@/payload-types'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import clsx from 'clsx'
 import { Plus } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import React, { useCallback, useMemo } from 'react'
+import React, { ComponentProps, useCallback, useMemo } from 'react'
 import { toast } from 'sonner'
 type Props = {
   product: Product
-}
+  autoVariant?: boolean
+} & ComponentProps<typeof Button>
 
-export function AddToCart({ product }: Props) {
+export function AddToCart({ product, autoVariant = false, ...props }: Props) {
   const { addItem, cart, isLoading } = useCart()
   const searchParams = useSearchParams()
 
@@ -97,16 +99,21 @@ export function AddToCart({ product }: Props) {
 
   return (
     <Button
+      {...props}
       aria-label="Add to cart"
-      className={clsx({
-        'hover:opacity-90': true,
-      })}
+      className={cn('hover:opacity-90', props.className)}
       disabled={disabled || isLoading}
       onClick={addToCart}
       type="submit"
     >
-      <Plus />
-      Add To Cart
+      {props.children ? (
+        props.children
+      ) : (
+        <>
+          <Plus />
+          Add To Cart
+        </>
+      )}
     </Button>
   )
 }

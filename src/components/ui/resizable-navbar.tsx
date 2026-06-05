@@ -95,12 +95,9 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         stiffness: 200,
         damping: 50,
       }}
-      style={{
-        minWidth: '800px',
-      }}
       className={cn(
-        'relative z-60 mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex',
-        "glass-shadow",
+        'relative z-60 mx-auto hidden sm:flex w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 ',
+        'glass-shadow',
         visible && 'bg-muted',
         className,
       )}
@@ -118,7 +115,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        'absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2',
+        'absolute inset-0 hidden sm:flex lg:space-x-2 flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 ',
         className,
       )}
     >
@@ -170,7 +167,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        'relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden',
+        'relative sm:hidden z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 ',
         visible && 'bg-white/80 dark:bg-neutral-950/80',
         className,
       )}

@@ -1,5 +1,6 @@
 'use client'
 import { cn } from '@/lib/utils'
+import { getDiscountPrice } from '@/lib/utils/product.utils'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import React, { useMemo } from 'react'
 
@@ -23,7 +24,7 @@ type PriceRange = {
   lowestAmount: number
 }
 
-type Props = BaseProps & (PriceFixed | PriceRange)
+type Props = BaseProps & (PriceFixed | PriceRange) & { discount?: number }
 
 export const Price = ({
   amount,
@@ -31,6 +32,7 @@ export const Price = ({
   highestAmount,
   lowestAmount,
   currencyCode: currencyCodeFromProps,
+  discount,
   as = 'p',
 }: Props & React.ComponentProps<'p'>) => {
   const { formatCurrency, supportedCurrencies } = useCurrency()
@@ -44,27 +46,59 @@ export const Price = ({
     return undefined
   }, [currencyCodeFromProps, supportedCurrencies])
 
+  console.log('discount:', discount)
+
   if (typeof amount === 'number') {
     return (
-      <Element className={cn('font-mono', className)} suppressHydrationWarning>
-        {formatCurrency(amount, { currency: currencyToUse })}
-      </Element>
+      <>
+        {discount ? (
+          <>
+            <Element className={cn('font-mono leading-tight', className)} suppressHydrationWarning>
+              <span
+                className={'block'}
+              >{`${formatCurrency(getDiscountPrice(discount, amount), { currency: currencyToUse })}`}</span>
+              <span className="line-through text-xs text-muted-foreground -mt-1">{`${formatCurrency(amount, { currency: currencyToUse })}`}</span>
+            </Element>
+          </>
+        ) : (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {formatCurrency(amount, { currency: currencyToUse })}
+          </Element>
+        )}
+      </>
     )
   }
 
   if (highestAmount && highestAmount !== lowestAmount) {
+    console.log('range', discount)
     return (
-      <Element className={cn('font-mono', className)} suppressHydrationWarning>
-        {`${formatCurrency(lowestAmount, { currency: currencyToUse })} - ${formatCurrency(highestAmount, { currency: currencyToUse })}`}
-      </Element>
+      <>
+        {discount ? (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {`${formatCurrency(getDiscountPrice(discount, lowestAmount), { currency: currencyToUse })} - ${formatCurrency(getDiscountPrice(discount, highestAmount), { currency: currencyToUse })}`}
+          </Element>
+        ) : (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {`${formatCurrency(lowestAmount, { currency: currencyToUse })} - ${formatCurrency(highestAmount, { currency: currencyToUse })}`}
+          </Element>
+        )}
+      </>
     )
   }
 
   if (lowestAmount) {
     return (
-      <Element className={cn('font-mono', className)} suppressHydrationWarning>
-        {`${formatCurrency(lowestAmount, { currency: currencyToUse })}`}
-      </Element>
+      <>
+        {discount ? (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {`${formatCurrency(getDiscountPrice(discount, lowestAmount), { currency: currencyToUse })}`}
+          </Element>
+        ) : (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {`${formatCurrency(lowestAmount, { currency: currencyToUse })}`}
+          </Element>
+        )}
+      </>
     )
   }
 

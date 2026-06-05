@@ -21,7 +21,7 @@ import { FormItem } from '@/components/forms/FormItem'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cssVariables } from '@/cssVariables'
-import { Address } from '@/payload-types'
+import { Address, Product } from '@/payload-types'
 import { useAddresses, useCart, usePayments } from '@payloadcms/plugin-ecommerce/client/react'
 import { useTheme } from 'next-themes'
 import { toast } from 'sonner'
@@ -276,6 +276,7 @@ export const CheckoutPage: React.FC = () => {
         {!paymentData && (
           <Button
             className="self-start"
+            size="lg"
             disabled={!canGoToPayment}
             onClick={(e) => {
               e.preventDefault()
@@ -360,12 +361,10 @@ export const CheckoutPage: React.FC = () => {
           <Heading className="text-3xl font-medium">Your cart</Heading>
           {cart?.items?.map((item, index) => {
             if (typeof item.product === 'object' && item.product) {
-              const {
-                product,
-                product: { id, meta, title, gallery },
-                quantity,
-                variant,
-              } = item
+              const product = item.product as Product
+              const { meta, title, gallery, settings } = product
+
+              const { quantity, variant } = item
 
               if (!quantity) return null
 
@@ -425,7 +424,10 @@ export const CheckoutPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {typeof price === 'number' && <Price amount={price} />}
+                    {typeof price === 'number' && (
+                      <Price amount={price} discount={settings?.discount!} />
+                    )}
+                    {/* {typeof price === 'number' && <Price amount={price} />} */}
                   </div>
                 </div>
               )

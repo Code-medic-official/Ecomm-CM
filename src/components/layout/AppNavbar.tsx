@@ -36,16 +36,16 @@ export function AppNavbar({
         {/* Desktop Navigation */}
         <NavBody>
           {hideSidebarToggle ? (
-            <NavbarLogo className='relative z-70' />
+            <NavbarLogo className="relative z-70" />
           ) : (
             // <Logo className="size-10" />
             <NavbarButton variant="secondary" className="bg-none p-0 text-foreground relatve z-70">
-              <SidebarTrigger variant={'outline'} />
+              <SidebarTrigger variant={'secondary'} />
             </NavbarButton>
           )}
 
           <NavItems items={navItems.map(({ link }) => ({ name: link.label, link: link.url! }))} />
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <NavbarButton variant="secondary" className="bg-none p-0 text-foreground">
               <ThemeToggle />
             </NavbarButton>
@@ -70,7 +70,7 @@ export function AppNavbar({
                   variant="secondary"
                   className="bg-none p-0 text-foreground relatve z-70"
                 >
-                  <SidebarTrigger variant={'outline'} size={'icon-lg'} />
+                  <SidebarTrigger variant={'secondary'} size={'icon-lg'} />
                 </NavbarButton>
               )}
               <MobileNavToggle

@@ -20,6 +20,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { DefaultDocumentIDType, Where } from 'payload'
 import { ProductSettings } from './productSettings.field'
+import { VariantOptionsSelector } from '@payloadcms/plugin-ecommerce/rsc'
 
 export const ProductsCollection: CollectionOverride = ({ defaultCollection }) => ({
   ...defaultCollection,
@@ -51,6 +52,8 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
     enableVariants: true,
     gallery: true,
     priceInUSD: true,
+    settings: true,
+
     inventory: true,
     meta: true,
   },
@@ -145,6 +148,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           label: 'Product Details',
           fields: [
             ...defaultCollection.fields,
+            // ...defaultCollection.fields.filter
             {
               name: 'relatedProducts',
               type: 'relationship',

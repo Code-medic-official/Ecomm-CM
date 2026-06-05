@@ -56,12 +56,15 @@ export function ProductDescription({ product }: { product: Product }) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <Heading className="text-2xl">{product.title}</Heading>
-        {/* <h1 className=" font-medium text-primary">{product.title}</h1> */}
-        <div className="uppercase text-primary">
+        <div className="uppercase text-primary font-medium">
           {hasVariants ? (
-            <Price highestAmount={highestAmount} lowestAmount={lowestAmount} />
+            <Price
+              highestAmount={highestAmount}
+              lowestAmount={lowestAmount}
+              discount={product.settings?.discount!}
+            />
           ) : (
-            <Price amount={amount} />
+            <Price amount={amount} discount={product.settings?.discount!} />
           )}
         </div>
       </div>
