@@ -58,11 +58,17 @@ export function AppNavbar({ header }: { header: Header }) {
               <SidebarTrigger />
             </div>
 
-            <Suspense fallback={<OpenCartButton />}>
-              <NavbarButton variant="primary" className={'p-0'}>
-                <Cart />
+            <div className="flex items-center gap-2">
+              <NavbarButton variant="secondary" className="bg-none p-0 text-foreground">
+                <ThemeToggle />
               </NavbarButton>
-            </Suspense>
+
+              <Suspense fallback={<OpenCartButton />}>
+                <NavbarButton variant="primary" className={'p-0 bg-none '}>
+                  <Cart />
+                </NavbarButton>
+              </Suspense>
+            </div>
           </MobileNavHeader>
 
           <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>

@@ -47,7 +47,7 @@ export const SettingsGlobal: GlobalConfig = {
           fields: [
             {
               name: 'appName',
-              label: 'Store name',
+            label: 'Store name',
               type: 'text',
               required: true,
               defaultValue: 'CM Ecommerce',

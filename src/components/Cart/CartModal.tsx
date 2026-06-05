@@ -2,13 +2,13 @@
 
 import { Price } from '@/components/Price'
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer'
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
 import { CreditCard, ShoppingCart } from 'lucide-react'
 import Image from 'next/image'
@@ -21,10 +21,12 @@ import { Product } from '@/payload-types'
 import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import { OpenCartButton } from './OpenCart'
+import { useMediaQuery } from '@uidotdev/usehooks'
 
 export function CartModal() {
   const { cart } = useCart()
   const [isOpen, setIsOpen] = useState(false)
+  const isSmScreen = useMediaQuery('(width <= 640px)')
 
   const pathname = usePathname()
 
@@ -39,18 +41,21 @@ export function CartModal() {
   }, [cart])
 
   return (
-    <Sheet onOpenChange={setIsOpen} open={isOpen}>
-      <SheetTrigger render={<OpenCartButton quantity={totalQuantity} />} />
+    <Drawer direction={isSmScreen ? 'bottom' : 'right'} onOpenChange={setIsOpen} open={isOpen}>
+      {/* <DrawerTrigger render={<OpenCartButton quantity={totalQuantity} />} /> */}
+      <DrawerTrigger asChild>
+        <OpenCartButton quantity={totalQuantity} />
+      </DrawerTrigger>
 
-      <SheetContent className="flex flex-col">
-        <SheetHeader>
-          <SheetTitle className="text-primary text-xl font-medium">
+      <DrawerContent className="flex flex-col">
+        <DrawerHeader>
+          <DrawerTitle className="text-primary text-xl font-medium">
             <ShoppingCart />
             <span>My Cart</span>
-          </SheetTitle>
+          </DrawerTitle>
 
-          <SheetDescription>Manage your cart here, add items to view the total.</SheetDescription>
-        </SheetHeader>
+          <DrawerDescription>Manage your cart here, add items to view the total.</DrawerDescription>
+        </DrawerHeader>
 
         {!cart || cart?.items?.length === 0 ? (
           <div className="text-center flex flex-col items-center gap-2">
@@ -170,7 +175,8 @@ export function CartModal() {
                       <p>Total</p>
                       <Price
                         amount={cart?.subtotal}
-                        className="text-right text-base text-black dark:text-white"
+                        // className="text-right text-xl text-primary"
+                        className="text-right text-xl text-foreground font-medium"
                       />
                     </div>
                   )}
@@ -187,7 +193,7 @@ export function CartModal() {
             </div>
           </div>
         )}
-      </SheetContent>
-    </Sheet>
+      </DrawerContent>
+    </Drawer>
   )
 }

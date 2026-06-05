@@ -10,7 +10,6 @@ export default function Logo(props: ComponentProps<'a'>) {
   const { settings } = useAppSettings()
   const logo = settings.logo as Media
 
-  console.log('settings', settings)
 
   return (
     // <div >
