@@ -13,7 +13,6 @@ export const SettingsGlobal: GlobalConfig = {
       tabs: [
         {
           label: 'Design',
-
           fields: [
             {
               type: 'row',
@@ -41,6 +40,25 @@ export const SettingsGlobal: GlobalConfig = {
               ],
             },
             { name: 'logo', type: 'upload', relationTo: 'media' },
+          ],
+        },
+        {
+          label: 'Fundamentals',
+          fields: [
+            {
+              name: 'appName',
+              label: 'Store name',
+              type: 'text',
+              required: true,
+              defaultValue: 'CM Ecommerce',
+              admin: {
+                placeholder: 'Enter the name of your store...',
+              },
+            },
+            { name: 'slogan', type: 'text', defaultValue: 'We have all u want!' },
+            { name: 'description', type: 'richText', admin: {
+              description: "Describe broadly what your shop is about."
+            } },
           ],
         },
       ],

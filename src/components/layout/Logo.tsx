@@ -1,18 +1,29 @@
+'use client'
+
+import { useAppSettings } from '@/contexts/AppSettings.context'
+import { Media } from '@/payload-types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ComponentProps } from 'react'
 
-//! Make Dynamic
+export default function Logo(props: ComponentProps<'a'>) {
+  const { settings } = useAppSettings()
+  const logo = settings.logo as Media
 
-export default function Logo(props: ComponentProps<'div'>) {
+  console.log('settings', settings)
+
   return (
-    <div {...props}>
+    // <div >
+    <Link href={'/shop'} {...props} className="block size-12">
       <Image
-        src="/assets/logo.png"
-        alt="logo"
+        src={logo.url ?? '/assets/logo.png'}
+        alt={logo.alt ?? 'logo'}
         height={999}
         width={999}
+        priority
         className="object-cover size-full rounded-lg"
       />
-    </div>
+    </Link>
+    // </div>
   )
 }

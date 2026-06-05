@@ -22,6 +22,8 @@ import { Boxes, SortAsc } from 'lucide-react'
 import { SortFilterItem } from './search/filter/FilterItem'
 import Logo from './Logo'
 import CategoryNavItem from './CategoryNavItem'
+import { getSettings } from '@/lib/actions/global.actions'
+import Heading from '../custom/Heading'
 
 export default function ShopSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
@@ -102,10 +104,17 @@ ShopSidebar.SortMenu = () => {
   )
 }
 
-ShopSidebar.Header = () => {
+ShopSidebar.Header = async () => {
+  const { appName, slogan } = await getSettings()
+
   return (
-    <SidebarMenuButton>
-      <Logo className="size-10" />
+    <SidebarMenuButton className="h-15 bg-none rounded-b-none rounded-t-lg border-0 border-b-2!">
+      <Logo className="size10" />
+
+      <div>
+        <Heading className="text-xl text-primary">{appName}</Heading>
+        <p className="text-xs text-muted-foreground font-medium">{slogan}</p>
+      </div>
     </SidebarMenuButton>
   )
 }

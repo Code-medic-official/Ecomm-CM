@@ -3791,6 +3791,26 @@ export interface Setting {
    */
   systemFont: 'poppinsFont' | 'interFont' | 'montserratFont' | 'geistFont' | 'robotoFont';
   logo?: (string | null) | Media;
+  appName: string;
+  slogan?: string | null;
+  /**
+   * Describe broadly what your shop is about.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3848,6 +3868,9 @@ export interface SettingsSelect<T extends boolean = true> {
   headingFont?: T;
   systemFont?: T;
   logo?: T;
+  appName?: T;
+  slogan?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

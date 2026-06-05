@@ -1,17 +1,15 @@
 import type { ReactNode } from 'react'
 
-import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/components/Footer'
-import { Header } from '@/components/Header'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { spaceGroteskFont, SYSTEM_FONTS } from '@/fonts/fonts'
+import { getSettings } from '@/lib/actions/global.actions'
+import { cn } from '@/lib/utils'
 import { Providers } from '@/providers'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import './globals.css'
-import { cn } from '@/lib/utils'
-import { HEADER_FONTS, poppinsFont, spaceGroteskFont, SYSTEM_FONTS } from '@/fonts/fonts'
-import { getSettings } from '@/lib/actions/global.actions'
+import { AppSettingsProvider } from '@/contexts/AppSettings.context'
 
 const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -59,13 +57,15 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <body>
         <ScrollArea className={'h-screen max-h-screen! overflow-x-hidden'}>
-          <Providers>
-            {/* <AdminBar /> */}
-            <LivePreviewListener />
-            {/* <Header /> */}
-            <main>{children}</main>
-            {/* <Footer /> */}
-          </Providers>
+          <AppSettingsProvider settingsInit={settings}>
+            <Providers>
+              {/* <AdminBar /> */}
+              <LivePreviewListener />
+              {/* <Header /> */}
+              <main>{children}</main>
+              {/* <Footer /> */}
+            </Providers>
+          </AppSettingsProvider>
         </ScrollArea>
       </body>
     </html>
