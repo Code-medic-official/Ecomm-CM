@@ -5,6 +5,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { RenderParams } from '@/components/RenderParams'
 import { AccountNav } from '@/components/AccountNav'
+import { Header } from '@/components/Header'
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const headers = await getHeaders()
@@ -16,7 +17,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <div className="container">
         <RenderParams className="" />
       </div>
-
+      <Header />
       <div className="container mt-16 pb-8 flex gap-8">
         {user && <AccountNav className="max-w-62 grow flex-col items-start gap-4 hidden md:flex" />}
 

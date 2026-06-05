@@ -1,4 +1,5 @@
 import { Grid } from '@/components/Grid'
+import CategoriesCarousel from '@/components/layout/CategoriesCarousel'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -9,7 +10,7 @@ export const metadata = {
   title: 'Shop',
 }
 
-type SearchParams = { [key: string]: string | string[] | undefined }
+export type SearchParams = { [key: string]: string | string[] | undefined }
 
 type Props = {
   searchParams: Promise<SearchParams>
@@ -67,7 +68,7 @@ export default async function ShopPage({ searchParams }: Props) {
                             contains: category,
                           },
                         },
-                        { 'categories.refCategory': {equals: category} }, // ! test
+                        { 'categories.refCategory': { equals: category } }, // ! test
                       ],
                     },
                   ]

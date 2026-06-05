@@ -171,7 +171,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 
 export const MobileNavHeader = ({ children, className }: MobileNavHeaderProps) => {
   return (
-    <div className={cn('flex w-full flex-row items-center justify-between', className)}>
+    <div className={cn('flex w-full flex-row items-center justify-between px-2 sm:px-3', className)}>
       {children}
     </div>
   )

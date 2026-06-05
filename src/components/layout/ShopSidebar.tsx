@@ -21,6 +21,7 @@ import { FilterList } from './search/filter'
 import { Boxes, SortAsc } from 'lucide-react'
 import { SortFilterItem } from './search/filter/FilterItem'
 import Logo from './Logo'
+import CategoryNavItem from './CategoryNavItem'
 
 export default function ShopSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
@@ -49,6 +50,7 @@ ShopSidebar.CategoriesMenu = async () => {
     },
     sort: 'title',
   })
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>
@@ -68,15 +70,8 @@ ShopSidebar.CategoriesMenu = async () => {
                 <SidebarMenuButton
                   tooltip={c.title}
                   key={c.id}
-                  render={
-                    <CategoryItem category={c}>
-                      <Button variant={'outline'} className={'justify-start w-full'}>
-                        <DynamicIcon name={c.icon!} />
-                        {c.title}
-                      </Button>
-                    </CategoryItem>
-                  }
-                ></SidebarMenuButton>
+                  render={<CategoryNavItem category={c} />}
+                />
               ))}
           </SidebarMenu>
         </SidebarGroupContent>

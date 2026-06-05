@@ -7,7 +7,7 @@ import {
   Navbar,
   NavbarButton,
   NavBody,
-  NavItems
+  NavItems,
 } from '@/components/ui/resizable-navbar'
 import { Header } from '@/payload-types'
 import { ThemeToggle } from '@/providers/Theme'
