@@ -163,3 +163,29 @@ export const fascinateFont = Fascinate({
   preload: true,
   subsets: ['latin'],
 })
+
+export const HEADER_FONTS = {
+  spaceGroteskFont,
+  jimNightShadeFont,
+  petitFormalScriptFont,
+  wallPoetFont,
+  sairaStencilOneFont,
+  keniaFont,
+  keniaOneFont,
+  // audioWideFont,
+  zenDotsFont,
+  orbitronFont,
+  bowlyOneFont,
+  spicyRiceFont,
+  kavoonFont,
+  notableFont,
+  fascinateFont,
+}
+
+export const SYSTEM_FONTS = {
+  poppinsFont,
+  interFont,
+  montserratFont,
+  geistFont,
+  robotoFont,
+}

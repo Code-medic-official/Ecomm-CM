@@ -19,9 +19,11 @@ import { Categories } from '@/lib/collections/Categories'
 import { Media } from '@/lib/collections/Media'
 import { Pages } from '@/lib/collections/Pages'
 import { Users } from '@/lib/collections/Users'
-import { Footer } from '@/globals/Footer'
-import { Header } from '@/globals/Header'
+import { Footer } from '@/lib/globals/Footer'
+import { Header } from '@/lib/globals/Header'
 import { plugins } from './plugins'
+import { ReviewsCollection } from './lib/collections/Reviews'
+import { SettingsGlobal } from './lib/globals/Settings.global'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +40,8 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, Media],
+  globals: [Header, Footer, SettingsGlobal],
+  collections: [Users, Pages, Categories, Media, ReviewsCollection],
   db: mongooseAdapter({
     url: process.env.DATABASE_URL || '',
   }),
@@ -79,7 +82,6 @@ export default buildConfig({
   }),
   //email: nodemailerAdapter(),
   endpoints: [],
-  globals: [Header, Footer],
   plugins,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

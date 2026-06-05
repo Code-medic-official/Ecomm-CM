@@ -14,8 +14,8 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
         <ShopSidebar />
         <SidebarInset className='relative' > 
           <Header />
-          <div className="container flex flex-col gap-8 my-16 pb-4 ">
-            <Search className="mb-8" />
+          <div className="container flex flex-col gap-8 my-5 pb-4 ">
+            <Search className="mb-2" />
 
             <div>{children}</div>
           </div>

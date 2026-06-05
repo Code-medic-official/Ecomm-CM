@@ -4,7 +4,10 @@ import { cn } from '@/utilities/cn'
 import { createUrl } from '@/utilities/createUrl'
 import { SearchIcon } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
+import { Input } from '../ui/input'
+import { GooeyInput } from '../ui/gooey-input'
+import { useMediaQuery } from '@uidotdev/usehooks'
 
 type Props = {
   className?: string
@@ -13,16 +16,18 @@ type Props = {
 export const Search: React.FC<Props> = ({ className }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [q, setQ] = useState<string>()
+  const isSmScreen = useMediaQuery('(width <= 640px)')
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const val = e.target as HTMLFormElement
-    const search = val.search as HTMLInputElement
+    // const val = e.target as HTMLFormElement
+    // const search = val.search as HTMLInputElement
     const newParams = new URLSearchParams(searchParams.toString())
 
-    if (search.value) {
-      newParams.set('q', search.value)
+    if (q) {
+      newParams.set('q', q)
     } else {
       newParams.delete('q')
     }
@@ -32,18 +37,17 @@ export const Search: React.FC<Props> = ({ className }) => {
 
   return (
     <form className={cn('relative w-full', className)} onSubmit={onSubmit}>
-      <input
-        autoComplete="off"
-        className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400"
+      <GooeyInput
+        className="w-full rounded-lg font-mono md:justify-end"
         defaultValue={searchParams?.get('q') || ''}
         key={searchParams?.get('q')}
-        name="search"
-        placeholder="Search for products..."
-        type="text"
+        onValueChange={(v) => setQ(v)}
+        // name="search"
+        placeholder="Search products..."
+        expandedWidth={isSmScreen ? 270 : 400}
+        collapsedWidth={200}
+        // type="text"
       />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        <SearchIcon className="h-4" />
-      </div>
     </form>
   )
 }
