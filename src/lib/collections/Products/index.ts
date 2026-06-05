@@ -19,6 +19,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 import { DefaultDocumentIDType, Where } from 'payload'
+import { ProductSettings } from './productSettings.field'
 
 export const ProductsCollection: CollectionOverride = ({ defaultCollection }) => ({
   ...defaultCollection,
@@ -141,6 +142,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
           label: 'Content',
         },
         {
+          label: 'Product Details',
           fields: [
             ...defaultCollection.fields,
             {
@@ -166,7 +168,6 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               relationTo: 'products',
             },
           ],
-          label: 'Product Details',
         },
         {
           name: 'meta',
@@ -208,5 +209,14 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
       relationTo: 'categories',
     },
     slugField(),
+    {
+      label: 'Settings',
+      name: 'settings',
+      type: 'group',
+      fields: ProductSettings,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 })

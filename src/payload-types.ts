@@ -133,10 +133,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    settings: Setting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    settings: SettingsSelect<false> | SettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -316,6 +318,22 @@ export interface Product {
    */
   generateSlug?: boolean | null;
   slug: string;
+  settings?: {
+    reviews?: {
+      /**
+       * Allow Customers to write reviews & rate this product.
+       */
+      allowReviews?: boolean | null;
+      /**
+       * Hide all existing customer reviews & ratings for this product. This will also be applied to ALL the product's variant prices
+       */
+      hideReviews?: boolean | null;
+    };
+    /**
+     * This is percentage by which you wish to discount/lower the selling price of this product.
+     */
+    discount?: number | null;
+  };
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -2889,7 +2907,7 @@ export interface Review {
   id: string;
   user: string | User;
   product: string | Product;
-  body: string;
+  body?: string | null;
   likes?: (string | User)[] | null;
   dislikes?: (string | User)[] | null;
   rating?: ('1' | '2' | '3' | '4' | '5') | null;
@@ -3532,6 +3550,17 @@ export interface ProductsSelect<T extends boolean = true> {
   categories?: T;
   generateSlug?: T;
   slug?: T;
+  settings?:
+    | T
+    | {
+        reviews?:
+          | T
+          | {
+              allowReviews?: T;
+              hideReviews?: T;
+            };
+        discount?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
@@ -3731,6 +3760,41 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
+ * Configure your shop settings here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings".
+ */
+export interface Setting {
+  id: string;
+  /**
+   * Font that will be applied headings.
+   */
+  headingFont:
+    | 'spaceGroteskFont'
+    | 'jimNightShadeFont'
+    | 'petitFormalScriptFont'
+    | 'wallPoetFont'
+    | 'sairaStencilOneFont'
+    | 'keniaFont'
+    | 'keniaOneFont'
+    | 'audioWideFont'
+    | 'zenDotsFont'
+    | 'orbitronFont'
+    | 'bowlyOneFont'
+    | 'spicyRiceFont'
+    | 'kavoonFont'
+    | 'notableFont'
+    | 'fascinateFont';
+  /**
+   * General font applied throughout the app.
+   */
+  systemFont: 'poppinsFont' | 'interFont' | 'montserratFont' | 'geistFont' | 'robotoFont';
+  logo?: (string | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -3772,6 +3836,18 @@ export interface FooterSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "settings_select".
+ */
+export interface SettingsSelect<T extends boolean = true> {
+  headingFont?: T;
+  systemFont?: T;
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

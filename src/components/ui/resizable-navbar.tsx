@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 import React, { useRef, useState } from 'react'
 import { SidebarTrigger } from './sidebar'
+import { usePathname } from 'next/navigation'
 
 interface NavbarProps {
   children: React.ReactNode
@@ -109,6 +110,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null)
+  const pathname = usePathname()
 
   return (
     <motion.div
@@ -118,23 +120,30 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         className,
       )}
     >
-      {items.map((item, idx) => (
-        <Link
-          onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
-          className="relative px-4 py-2 text-foreground font-medium font-heading"
-          key={`link-${idx}`}
-          href={item.link}
-        >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-secondary/50"
-            />
-          )}
-          <span className="relative z-20">{item.name}</span>
-        </Link>
-      ))}
+      {items.map((item, idx) => {
+        const isActive = item.link !== '/' ? pathname.startsWith(item.link) : pathname === '/'
+
+        return (
+          <Link
+            onMouseEnter={() => setHovered(idx)}
+            onClick={onItemClick}
+            className={cn(
+              'relative px-4 py-2 text-foreground font-medium font-heading',
+              isActive && 'text-primary bg-muted/60 rounded-full',
+            )}
+            key={`link-${idx}`}
+            href={item.link}
+          >
+            {hovered === idx && (
+              <motion.div
+                layoutId="hovered"
+                className="absolute inset-0 h-full w-full rounded-full bg-secondary/50"
+              />
+            )}
+            <span className="relative z-20">{item.name}</span>
+          </Link>
+        )
+      })}
     </motion.div>
   )
 }
@@ -171,7 +180,9 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 
 export const MobileNavHeader = ({ children, className }: MobileNavHeaderProps) => {
   return (
-    <div className={cn('flex w-full flex-row items-center justify-between px-2 sm:px-3', className)}>
+    <div
+      className={cn('flex w-full flex-row items-center justify-between px-2 sm:px-3', className)}
+    >
       {children}
     </div>
   )

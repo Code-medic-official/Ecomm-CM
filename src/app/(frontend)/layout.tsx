@@ -10,7 +10,8 @@ import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
 import './globals.css'
 import { cn } from '@/lib/utils'
-import { poppinsFont, spaceGroteskFont } from '@/fonts/fonts'
+import { HEADER_FONTS, poppinsFont, spaceGroteskFont, SYSTEM_FONTS } from '@/fonts/fonts'
+import { getSettings } from '@/lib/actions/global.actions'
 
 const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -42,11 +43,15 @@ export const metadata = {
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
+  const settings = await getSettings()
+
   return (
     <html
       className={cn(
         [GeistSans.variable, GeistMono.variable].filter(Boolean).join(' '),
-        poppinsFont.className,
+        SYSTEM_FONTS[settings.systemFont!].className,
+        // HEADER_FONTS[settings.headingFont!].variable, // !Fix
+        // poppinsFont.className,
         spaceGroteskFont.variable,
       )}
       lang="en"

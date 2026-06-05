@@ -22,7 +22,7 @@ import { Users } from '@/lib/collections/Users'
 import { Footer } from '@/lib/globals/Footer'
 import { Header } from '@/lib/globals/Header'
 import { plugins } from './plugins'
-import { ReviewsCollection } from './lib/collections/Reviews'
+import { ReviewsCollection } from './lib/collections/Reviews.collection'
 import { SettingsGlobal } from './lib/globals/Settings.global'
 
 const filename = fileURLToPath(import.meta.url)
