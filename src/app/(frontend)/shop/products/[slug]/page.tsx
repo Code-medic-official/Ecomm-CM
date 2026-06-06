@@ -15,6 +15,9 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import React, { Suspense } from 'react'
 import Heading from '@/components/custom/Heading'
+import { getReviews } from '@/lib/actions/review.actions'
+import ReviewsFeed from '@/components/custom/ReviewsFeed'
+import RelatedProductsCarousel from '@/components/layout/RelatedProductsCarousel'
 
 type Args = {
   params: Promise<{
@@ -64,6 +67,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 export default async function ProductPage({ params }: Args) {
   const { slug } = await params
   const product = await queryProductBySlug({ slug })
+  const reviews = await getReviews({ product: product.id })
 
   if (!product) return notFound()
 
@@ -152,6 +156,8 @@ export default async function ProductPage({ params }: Args) {
 
       {product.layout?.length ? <RenderBlocks blocks={product.layout} /> : <></>}
 
+      {product.settings?.reviews?.hideReviews || <ReviewsFeed reviews={reviews} />}
+
       {relatedProducts.length ? (
         <div className="container">
           <RelatedProducts products={relatedProducts as Product[]} />
@@ -169,24 +175,27 @@ function RelatedProducts({ products }: { products: Product[] }) {
   return (
     <div className="py-8">
       <Heading className="mb-4 text-2xl font-bold">Related Products</Heading>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+      {/* <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {products.map((product) => (
           <li
             className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
             key={product.id}
           >
-            <Link className="relative h-full w-full" href={`/products/${product.slug}`}>
+            <Link className="relative h-full w-full" href={`/shop/products/${product.slug}`}>
               <GridTileImage
                 label={{
                   amount: product.priceInUSD!,
                   title: product.title,
+                  discount: product.settings?.discount!,
                 }}
                 media={product.meta?.image as Media}
               />
             </Link>
           </li>
         ))}
-      </ul>
+      </ul> */}
+
+      <RelatedProductsCarousel products={products} />
     </div>
   )
 }

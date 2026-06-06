@@ -10,6 +10,7 @@ import { StockIndicator } from '@/components/product/StockIndicator'
 import { useCurrency } from '@payloadcms/plugin-ecommerce/client/react'
 import { VariantSelector } from './VariantSelector'
 import Heading from '../custom/Heading'
+import ReviewForm from '../forms/ReviewForm'
 
 export function ProductDescription({ product }: { product: Product }) {
   const { currency } = useCurrency()
@@ -56,7 +57,7 @@ export function ProductDescription({ product }: { product: Product }) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <Heading className="text-2xl">{product.title}</Heading>
-        <div className="uppercase text-primary font-medium">
+        <div className="uppercase text-primary font-medium text-lg">
           {hasVariants ? (
             <Price
               highestAmount={highestAmount}
@@ -70,7 +71,7 @@ export function ProductDescription({ product }: { product: Product }) {
       </div>
       {product.description ? (
         <RichText
-          className="text-muted-foreground"
+          className="text-muted-foreground text-sm sm:text-base"
           data={product.description}
           enableGutter={false}
         />
@@ -95,6 +96,8 @@ export function ProductDescription({ product }: { product: Product }) {
         <Suspense fallback={null}>
           <AddToCart product={product} />
         </Suspense>
+
+        {product.settings?.reviews?.allowReviews && <ReviewForm.Trigger />}
       </div>
     </div>
   )

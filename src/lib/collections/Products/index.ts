@@ -21,6 +21,7 @@ import {
 import { DefaultDocumentIDType, Where } from 'payload'
 import { ProductSettings } from './productSettings.field'
 import { VariantOptionsSelector } from '@payloadcms/plugin-ecommerce/rsc'
+import { FeatureProductFields } from './FeatureProductFields'
 
 export const ProductsCollection: CollectionOverride = ({ defaultCollection }) => ({
   ...defaultCollection,
@@ -75,6 +76,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
+
                   ]
                 },
               }),
@@ -199,6 +201,16 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
               descriptionPath: 'meta.description',
             }),
           ],
+        },
+
+        // Set up Product Featuring functionality
+        {
+          label: 'Featured✨',
+          name: 'featured',
+          fields: FeatureProductFields,
+          admin: {
+            condition: (data) => !!data?.settings?.isFeatured,
+          },
         },
       ],
     },

@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import type { Product, Variant } from '@/payload-types'
 
 import { useCart } from '@payloadcms/plugin-ecommerce/client/react'
-import clsx from 'clsx'
 import { Plus } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
 import React, { ComponentProps, useCallback, useMemo } from 'react'

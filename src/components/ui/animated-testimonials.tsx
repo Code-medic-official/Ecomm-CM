@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 // import MyBtn from '../Btns/MyBtn'
 import Image from 'next/image'
 import { Button } from './button'
+import { Review } from '@/payload-types'
 // import { getImageUrl } from '@/lib/utils'
 
 // type Testimonial = NonNullable<IAnimatedTestimonialsSection['testimonials']>[number]
@@ -14,7 +15,7 @@ export const AnimatedTestimonials = ({
   testimonials,
   autoplay = true,
 }: {
-  testimonials: {},
+  testimonials: Review[]
   autoplay?: boolean
 }) => {
   const [active, setActive] = useState(0)
@@ -77,8 +78,8 @@ export const AnimatedTestimonials = ({
                   className="absolute inset-0 origin-bottom"
                 >
                   <Image
-                    src={getImageUrl(testimonial.image)!}
-                    alt={testimonial.name}
+                    src={testimonial.user.imageUrl ?? '/assets/logo.png'}
+                    alt={'profile-photo'}
                     width={500}
                     height={500}
                     draggable={false}
@@ -110,13 +111,13 @@ export const AnimatedTestimonials = ({
             }}
           >
             <h3 className="text-2xl font-bold text-black dark:text-white">
-              {testimonials[active].name}
+              {testimonials[active].user.name}
             </h3>
             <p className="text-sm text-gray-500 dark:text-neutral-500">
               {testimonials[active].designation}
             </p>
             <motion.p className="mt-8 text-lg text-gray-500 dark:text-neutral-300">
-              {testimonials[active].quote.split(' ').map((word, index) => (
+              {testimonials[active].body?.split(' ').map((word, index) => (
                 <motion.span
                   key={index}
                   initial={{

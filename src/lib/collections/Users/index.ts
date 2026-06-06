@@ -32,6 +32,13 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      type: 'row',
+      fields: [
+        { name: 'fname', label: 'First name', type: 'text' },
+        { name: 'lname', label: 'Last name', type: 'text' },
+      ],
+    },
+    {
       name: 'roles',
       type: 'select',
       access: {
@@ -44,16 +51,7 @@ export const Users: CollectionConfig = {
       hooks: {
         beforeChange: [ensureFirstUserIsAdmin],
       },
-      options: [
-        {
-          label: 'admin',
-          value: 'admin',
-        },
-        {
-          label: 'customer',
-          value: 'customer',
-        },
-      ],
+      options: ['admin', 'customer'],
     },
     {
       name: 'orders',
@@ -85,5 +83,6 @@ export const Users: CollectionConfig = {
         defaultColumns: ['id'],
       },
     },
+    { name: 'imageUrl', type: 'text' },
   ],
 }

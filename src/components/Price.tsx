@@ -46,8 +46,6 @@ export const Price = ({
     return undefined
   }, [currencyCodeFromProps, supportedCurrencies])
 
-  console.log('discount:', discount)
-
   if (typeof amount === 'number') {
     return (
       <>
@@ -96,6 +94,27 @@ export const Price = ({
         ) : (
           <Element className={cn('font-mono', className)} suppressHydrationWarning>
             {`${formatCurrency(lowestAmount, { currency: currencyToUse })}`}
+          </Element>
+        )}
+      </>
+    )
+  }
+
+  if (discount) {
+    return (
+      <>
+        {discount ? (
+          <>
+            <Element className={cn('font-mono leading-tight', className)} suppressHydrationWarning>
+              <span
+                className={'block'}
+              >{`${formatCurrency(getDiscountPrice(discount, amount), { currency: currencyToUse })}`}</span>
+              <span className="line-through text-xs text-muted-foreground -mt-1">{`${formatCurrency(amount, { currency: currencyToUse })}`}</span>
+            </Element>
+          </>
+        ) : (
+          <Element className={cn('font-mono', className)} suppressHydrationWarning>
+            {formatCurrency(amount, { currency: currencyToUse })}
           </Element>
         )}
       </>

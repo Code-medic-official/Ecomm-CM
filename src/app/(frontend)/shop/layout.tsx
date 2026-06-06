@@ -22,7 +22,7 @@ export default async function ShopLayout({ children }: LayoutProps<'/shop'>) {
           <ShopSidebar />
           <SidebarInset className="relative">
             <Header />
-            <div className="container space-y-4 my-5 pb-4">
+            <div className="container space-y-4 my-5 pb-4 px-1! sm:px-3! ">
               <Search className="mb-2" />
               <CategoriesCarousel className="mb-2" />
 

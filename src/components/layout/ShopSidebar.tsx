@@ -1,9 +1,10 @@
+import { getSettings } from '@/lib/actions/global.actions'
 import { sorting } from '@/lib/constants'
 import config from '@payload-config'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import { SortAsc } from 'lucide-react'
 import { getPayload } from 'payload'
 import { ComponentProps, Suspense } from 'react'
-import { Button } from '../ui/button'
+import Heading from '../custom/Heading'
 import {
   Sidebar,
   SidebarContent,
@@ -16,18 +17,13 @@ import {
   SidebarMenuButton,
 } from '../ui/sidebar'
 import { Skeleton } from '../ui/skeleton'
-import { CategoryItem } from './search/Categories.client'
-import { FilterList } from './search/filter'
-import { Boxes, SortAsc } from 'lucide-react'
-import { SortFilterItem } from './search/filter/FilterItem'
-import Logo from './Logo'
 import CategoryNavItem from './CategoryNavItem'
-import { getSettings } from '@/lib/actions/global.actions'
-import Heading from '../custom/Heading'
+import Logo from './Logo'
+import { SortFilterItem } from './search/filter/FilterItem'
 
 export default function ShopSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props} variant="floating">
+    <Sidebar {...props} variant="floating" collapsible="offcanvas">
       <SidebarHeader>
         <ShopSidebar.Header />
       </SidebarHeader>

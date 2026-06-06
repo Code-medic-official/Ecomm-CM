@@ -191,6 +191,8 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   name?: string | null;
+  fname?: string | null;
+  lname?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
     docs?: (string | Order)[];
@@ -207,6 +209,7 @@ export interface User {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
+  imageUrl?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -312,6 +315,52 @@ export interface Product {
     image?: (string | null) | Media;
     description?: string | null;
   };
+  featured?: {
+    /**
+     * Marketing image of your product which will be used to feature templates. Defaults to main product image.
+     */
+    banner?: (string | null) | Media;
+    /**
+     * A straight-forward reason for customers to buy this product.
+     */
+    shortDescription?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Elaborate description for customers to buy this product. Eg: why it's featured, product details, why you recommend it...
+     */
+    longDescription?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * When do you want to stop featuring this product? Defaults to "Indefinitely"; till featuring is manually disabled.
+     */
+    expiry?: string | null;
+  };
   categories?: (string | Category)[] | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -325,14 +374,19 @@ export interface Product {
        */
       allowReviews?: boolean | null;
       /**
-       * Hide all existing customer reviews & ratings for this product. This will also be applied to ALL the product's variant prices
+       * Hide all existing customer reviews & ratings for this product.
        */
       hideReviews?: boolean | null;
     };
     /**
-     * This is percentage by which you wish to discount/lower the selling price of this product.
+     * This is percentage by which you wish to discount/lower the selling price of this product. This will also be applied to ALL the product's variant prices
      */
     discount?: number | null;
+    /**
+     * Featured products are automatically prioritized & appear on Feature Templates.
+     *  If enabled, a "Featured✨" tab will appear next to the SEO-Tab.
+     */
+    isFeatured?: boolean | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -3064,10 +3118,13 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  fname?: T;
+  lname?: T;
   roles?: T;
   orders?: T;
   cart?: T;
   addresses?: T;
+  imageUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -3549,6 +3606,14 @@ export interface ProductsSelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  featured?:
+    | T
+    | {
+        banner?: T;
+        shortDescription?: T;
+        longDescription?: T;
+        expiry?: T;
+      };
   categories?: T;
   generateSlug?: T;
   slug?: T;
@@ -3562,6 +3627,7 @@ export interface ProductsSelect<T extends boolean = true> {
               hideReviews?: T;
             };
         discount?: T;
+        isFeatured?: T;
       };
   updatedAt?: T;
   createdAt?: T;
