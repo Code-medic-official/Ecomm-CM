@@ -7,6 +7,7 @@ import { adminOrSelf } from '@/access/adminOrSelf'
 import { checkRole } from '@/access/utilities'
 
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
+import { ClerkAuthStrategy } from '@/lib/auth/ClerkAuthStrategy'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -21,15 +22,20 @@ export const Users: CollectionConfig = {
   admin: {
     group: 'Users',
     defaultColumns: ['name', 'email', 'roles'],
-    useAsTitle: 'name',
+    useAsTitle: 'username',
   },
   auth: {
     tokenExpiration: 1209600,
+    disableLocalStrategy: true,
+    strategies: [ClerkAuthStrategy],
   },
   fields: [
+    { name: 'clerkId', type: 'text', unique: true, required: true },
+
     {
-      name: 'name',
+      name: 'username',
       type: 'text',
+      unique: true,
     },
     {
       type: 'row',
@@ -38,6 +44,8 @@ export const Users: CollectionConfig = {
         { name: 'lname', label: 'Last name', type: 'text' },
       ],
     },
+    { name: 'imageUrl', type: 'text' },
+
     {
       name: 'roles',
       type: 'select',
@@ -83,6 +91,5 @@ export const Users: CollectionConfig = {
         defaultColumns: ['id'],
       },
     },
-    { name: 'imageUrl', type: 'text' },
   ],
 }

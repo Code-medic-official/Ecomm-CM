@@ -1,9 +1,7 @@
 import { Grid } from '@/components/Grid'
-import CategoriesCarousel from '@/components/layout/CategoriesCarousel'
 import { ProductGridItem } from '@/components/ProductGridItem'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
 
 export const metadata = {
   description: 'Search for products in the store.',

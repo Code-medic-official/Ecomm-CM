@@ -190,9 +190,11 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
-  name?: string | null;
+  clerkId: string;
+  username?: string | null;
   fname?: string | null;
   lname?: string | null;
+  imageUrl?: string | null;
   roles?: ('admin' | 'customer')[] | null;
   orders?: {
     docs?: (string | Order)[];
@@ -209,24 +211,8 @@ export interface User {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  imageUrl?: string | null;
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
   collection: 'users';
 }
 /**
@@ -3117,30 +3103,17 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
+  clerkId?: T;
+  username?: T;
   fname?: T;
   lname?: T;
+  imageUrl?: T;
   roles?: T;
   orders?: T;
   cart?: T;
   addresses?: T;
-  imageUrl?: T;
   updatedAt?: T;
   createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3835,6 +3808,39 @@ export interface Footer {
  */
 export interface Setting {
   id: string;
+  appName: string;
+  slogan?: string | null;
+  /**
+   * Describe broadly what your shop is about.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  contacts: {
+    email: string;
+    phone: string;
+    socialMedia?:
+      | {
+          site: 'twitter' | 'facebook' | 'instagram' | 'youtube' | 'tiktok' | 'reddit';
+          link: string;
+          displayText: string;
+          previewUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
   /**
    * Font that will be applied headings.
    */
@@ -3859,26 +3865,6 @@ export interface Setting {
    */
   systemFont: 'poppinsFont' | 'interFont' | 'montserratFont' | 'geistFont' | 'robotoFont';
   logo?: (string | null) | Media;
-  appName: string;
-  slogan?: string | null;
-  /**
-   * Describe broadly what your shop is about.
-   */
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3933,12 +3919,27 @@ export interface FooterSelect<T extends boolean = true> {
  * via the `definition` "settings_select".
  */
 export interface SettingsSelect<T extends boolean = true> {
-  headingFont?: T;
-  systemFont?: T;
-  logo?: T;
   appName?: T;
   slogan?: T;
   description?: T;
+  contacts?:
+    | T
+    | {
+        email?: T;
+        phone?: T;
+        socialMedia?:
+          | T
+          | {
+              site?: T;
+              link?: T;
+              displayText?: T;
+              previewUrl?: T;
+              id?: T;
+            };
+      };
+  headingFont?: T;
+  systemFont?: T;
+  logo?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -17,7 +17,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <div className="container">
         <RenderParams className="" />
       </div>
-      <Header />
+      <Header hideSidebarToggle />
       <div className="container mt-16 pb-8 flex gap-8">
         {user && <AccountNav className="max-w-62 grow flex-col items-start gap-4 hidden md:flex" />}
 

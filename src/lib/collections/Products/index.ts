@@ -76,7 +76,6 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
-
                   ]
                 },
               }),

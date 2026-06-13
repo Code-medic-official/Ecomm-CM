@@ -31,6 +31,10 @@ const nextConfig: NextConfig = {
           protocol: url.protocol.replace(':', '') as 'http' | 'https',
         }
       }),
+      {
+        protocol: 'https',
+        hostname: 'api.microlink.io',
+      },
     ],
   },
   reactStrictMode: true,

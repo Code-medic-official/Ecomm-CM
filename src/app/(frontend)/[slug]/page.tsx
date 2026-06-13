@@ -12,6 +12,7 @@ import React from 'react'
 import type { Page } from '@/payload-types'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
+import LandingPage from '@/components/layout/Pages/LandingPage'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -44,8 +45,12 @@ type Args = {
 }
 
 export default async function Page({ params }: Args) {
-  const { slug = 'home' } = await params
+  const { slug  } = await params
   const url = '/' + slug
+
+  console.log(url)
+
+  if (!slug) return <LandingPage />
 
   let page = await queryPageBySlug({
     slug,
@@ -63,7 +68,7 @@ export default async function Page({ params }: Args) {
   const { hero, layout } = page
 
   return (
-    <article className="pt16 pb-24">
+    <article className="pb-24">
       <Header hideSidebarToggle />
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />

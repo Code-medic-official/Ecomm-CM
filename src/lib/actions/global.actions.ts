@@ -8,9 +8,8 @@ const payload = await getPayload({ config })
 export const getSettings = async () => {
   try {
     return await payload.findGlobal({
-      slug: "settings",
+      slug: 'settings',
     })
-
   } catch (error: any) {
     throw new Error(error)
   }
